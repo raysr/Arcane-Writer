@@ -19,7 +19,7 @@ class Writer():
         predictors, label, max_sequence_len = self.generate_padded_sequences(input_sequence, self.vocabular_size)
         print(" Size of vocab : "+str(self.vocabular_size))
         self.model = WriterModel(max_sequence_len ,self.vocabular_size)
-        self.model.model.fit(predictors, label, epochs=100, verbose=5)
+        self.model.model.fit(predictors, label, epochs=10, verbose=5)
 
     def get_sequence_of_tokens(self, corpus):
         ## tokenization
@@ -40,10 +40,8 @@ class Writer():
         label = ku.to_categorical(label, num_classes=total_words)
         return predictors, label, max_sequence_len
 
-    def train(self):
-        self.model.model.fit(begin_sentence, following_words, epochs=100, verbose=5)
 
-    def generate_text(seed_text, next_words, model, max_sequence_len):
+    def generate_text(self, seed_text, next_words, max_sequence_len):
         for _ in range(next_words):
             token_list = self.tokenizer.texts_to_sequences([seed_text])[0]
             token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')

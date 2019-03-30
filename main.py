@@ -32,7 +32,7 @@ class AppWriter(QWidget):
 
         self.pickfile.clicked.connect(lambda: self.func_pickfile())
         self.train.clicked.connect(lambda: self.func_train())
-        self.generatetext.clicked.connect(lambda: self.func_train())
+        self.generatetext.clicked.connect(lambda: self.func_generate())
 
         self.files = []
         self.resize(800, 600)
@@ -49,10 +49,11 @@ class AppWriter(QWidget):
 
     def func_train(self):
         self.writer = Writer(self.files)
-        self.writer.train()
 
     def func_generate(self):
-        self.generate.appendPlainText(self.writer.generate_text())
+        dep = self.writer.generate_text("The",10, 10)
+        print(" GENERATED : "+str(dep))
+        self.generate.appendPlainText(str(dep))
 
 
 if __name__ == '__main__':
